@@ -27,12 +27,16 @@ class NodeMgmt:
             print("해당 값을 가진 노드가 없습니다.")
             return
         
+        # 1. self.head를 삭제해야할 경우 - self.head를 바꿔야함.
         if self.head.data == data:
+            # self.head 객체를 삭제하기 위해, 임시로 temp에 담아서 객체를 삭제
             temp = self.head
+            # 만약 self.head 객체를 삭제하면 self.head.next에서 오류남.
             self.head = self.head.next
             del temp
         else:
             node = self.head
+            # 2. self.head가 아닌 노드를 삭제해야할 경우
             while node.next:
                 if node.next.data == data:
                     temp = node.next
@@ -41,22 +45,22 @@ class NodeMgmt:
                     return
                 else:
                     node = node.next
+    
+    def search_node(self, data):
+        node = self.head
+        while node:
+            if node.data == data:
+                return node
+            else:
+                node = node.next
                     
         
 if __name__ == "__main__":
-    linked_list1 = NodeMgmt(0)
-    linked_list1.desc()
+    node_mgmt = NodeMgmt(0)
     
-    print(linked_list1.head)
+    for data in range(1, 10):
+        node_mgmt.add(data)
     
-    linked_list1.delete(0)
-    print(linked_list1.head)
+    node = node_mgmt.search_node(4)
+    print(node.data)
     
-    linked_list1 = NodeMgmt(0)
-    linked_list1.desc()
-    
-    for data in range(1,10):
-        linked_list1.add(data)
-    linked_list1.desc()
-    linked_list1.delete(4)
-    linked_list1.desc()
